@@ -28,7 +28,7 @@ app.on('incomingCallEvent', onIncomingCall);
 var arrClients = [];
 
 // Start a TCP Socket Server
-net.createServer(function (socket)
+var socketServer = net.createServer(function (socket)
 {
 
     // Handle incoming messages from clients.
@@ -86,7 +86,7 @@ net.createServer(function (socket)
     socket.on('close', function ()
     {
 
-        console.log('Socket closing %o', arrClients);
+        console.log('Socket closed');
         removeSocket(socket);
 
     });
@@ -119,6 +119,7 @@ net.createServer(function (socket)
  */
 function broadcastToExtension(strClientID, strExtensionNumber, strMessage)
 {
+
     console.log('Broadcasting to Extension: ' + strExtensionNumber + ' under Client ID: ' + strClientID);
 
     // Check if ClientID exists

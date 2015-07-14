@@ -27,15 +27,10 @@ app.get('/', function(req, res)
     {
 
         app.emit('incomingCallEvent', req.query);
-        res.sendStatus(200);
-
-    }
-    else
-    {
-
-        res.sendStatus(500);
 
     } // End if
+
+    res.sendStatus(200);
 
 });
 
