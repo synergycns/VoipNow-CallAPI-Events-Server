@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// Load dependencies
+// Load dependencies for server
 var app = require('./app');
 var debug = require('debug')('eAgent Server:server');
 var http = require('http');
