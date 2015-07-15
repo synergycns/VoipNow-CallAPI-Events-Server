@@ -132,7 +132,7 @@ function broadcastToExtension(strClientID, strExtensionNumber, strMessage)
     {
 
         // Iterate client's socket connections
-        arrClients[strClientID].every(function(socSocket)
+        arrClients[strClientID].forEach(function(socSocket)
         {
 
             // Check if extension numbers match
@@ -141,14 +141,6 @@ function broadcastToExtension(strClientID, strExtensionNumber, strMessage)
 
                 // Write message & exit loop
                 socSocket.write(strMessage);
-                return false;
-
-            }
-            else
-            {
-
-                // Continue loop
-                return true;
 
             } // End if
 
