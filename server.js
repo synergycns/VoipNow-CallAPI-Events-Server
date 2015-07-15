@@ -6,9 +6,9 @@ var app = require('./app');
 var debug = require('debug')('eAgent Server:server');
 var https = require('https');
 var net = require('net');
-var privateKey  = fs.readFileSync('../shared/config/ssl.key', 'utf8');
-var certificate = fs.readFileSync('../shared/config/ssl.crt', 'utf8');
-var caBundle = fs.readFileSync('../shared/config/ssl.ca', 'utf8');
+var privateKey  = fs.readFileSync('/srv/www/eagent_server/shared/config/ssl.key', 'utf8');
+var certificate = fs.readFileSync('/srv/www/eagent_server/shared/config/ssl.crt', 'utf8');
+var caBundle = fs.readFileSync('/srv/www/eagent_server/shared/config/ssl.ca', 'utf8');
 
 var credentials = {key: privateKey, cert: certificate, ca: caBundle};
 // Get port from environment and store in Express.
