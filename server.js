@@ -1,17 +1,22 @@
 #!/usr/bin/env node
 
 // Load dependencies for server
+var fs = require('fs');
 var app = require('./app');
 var debug = require('debug')('eAgent Server:server');
-var http = require('http');
+var https = require('https');
 var net = require('net');
+var privateKey  = fs.readFileSync('../shared/config/ssl.key', 'utf8');
+var certificate = fs.readFileSync('../shared/config/ssl.crt', 'utf8');
+var caBundle = fs.readFileSync('../shared/config/ssl.ca', 'utf8');
 
+var credentials = {key: privateKey, cert: certificate, ca: caBundle};
 // Get port from environment and store in Express.
-var port = normalizePort(process.env.PORT || '80');
+var port = normalizePort(process.env.PORT || '443');
 app.set('port', port);
 
-// Create HTTP server
-var server = http.createServer(app);
+// Create HTTPS server
+var server = https.createServer(credentials, app);
 
 // Listen on provided port, on all network interfaces.
 server.listen(port);
@@ -108,7 +113,7 @@ var socketServer = net.createServer(function (socket)
 
     });
 
-}).listen(81).on('listening', onSocketServerListening);
+}).listen(80).on('listening', onSocketServerListening);
 
 /**
  * Broadcast message to specific extension
@@ -185,7 +190,7 @@ function normalizePort(val)
 } // End function normalizePort
 
 /**
- * Event listener for HTTP server "error" event.
+ * Event listener for HTTPS server "error" event.
  *
  * @param error
  */
@@ -239,7 +244,7 @@ function onIncomingCall(objCallData)
 } // End function onIncomingCall
 
 /**
- * Event listener for HTTP server "listening" event.
+ * Event listener for HTTPS server "listening" event.
  *
  * @return  void
  */
